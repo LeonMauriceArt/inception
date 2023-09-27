@@ -1,4 +1,4 @@
-NAME        =	iter
+NAME        =	Inception
 
 SRCS 		=	 $(shell find -name '*.cpp')
 
