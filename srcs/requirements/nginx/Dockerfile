@@ -1,11 +1,13 @@
 FROM debian:buster
 
-COPY ../tools/nginxInstall.sh .
-RUN apt-update
+COPY nginxInstall.sh .
+RUN apt-get update
 RUN ./nginxInstall.sh
 
 #Installing zsh and ohmyzsh
-RUN apt install zsh -y
+RUN apt-get install zsh -y
+RUN apt-get install curl -y
+RUN apt-get install git -y
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
