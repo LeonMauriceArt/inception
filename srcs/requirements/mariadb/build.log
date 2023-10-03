@@ -1,0 +1,36 @@
+Sending build context to Docker daemon  9.216kB
+Step 1/7 : FROM debian:buster
+ ---> 4ad95f81332e
+Step 2/7 : RUN apt-get update -y
+ ---> Using cache
+ ---> 53d17bb63c91
+Step 3/7 : RUN apt-get upgrade -y
+ ---> Using cache
+ ---> a68044b357f2
+Step 4/7 : RUN apt-get install mariadb-server -y
+ ---> Using cache
+ ---> ce113bbdb31e
+Step 5/7 : COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+ ---> Using cache
+ ---> b416623a69ed
+Step 6/7 : COPY createDB.sh .
+ ---> Using cache
+ ---> 71672bdc4253
+Step 7/7 : RUN ./createDB.sh
+ ---> Running in 0da86fafbeb5
+[91mchmod: cannot access '/run/mysqld/mysqld.sock': No such file or directory
+[0mStarting MariaDB database server: mysqld . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . failed!
+[91mERROR[0m[91m 2002 (HY000)[0m[91m: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+[0m[91mERROR[0m[91m 2002 (HY000)[0m[91m: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+[0m[91mERROR[0m[91m 2002 (HY000)[0m[91m: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+[0m[91mERROR[0m[91m 2002 (HY000)[0m[91m: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+[0m[91mERROR[0m[91m 2002 (HY000)[0m[91m: Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+[0m[91mEnter password: [0m[91m[0m[91mmysqladmin[0m[91m: [0m[91mconnect to server at 'localhost' failed
+error: 'Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)'[0m[91m
+[0m[91mCheck that mysqld is running and that the socket: '/var/run/mysqld/mysqld.sock' exists!
+[0m231003 15:59:38 mysqld_safe Logging to syslog.
+231003 15:59:38 mysqld_safe Starting mysqld daemon with databases from /var/lib/mysql
+Removing intermediate container 0da86fafbeb5
+ ---> 3e84716e89cd
+Successfully built 3e84716e89cd
+Successfully tagged mariadb:latest
