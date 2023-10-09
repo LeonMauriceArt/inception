@@ -8,3 +8,5 @@ COPY conf/50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY createDB.sh .
 
 RUN ./createDB.sh
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
