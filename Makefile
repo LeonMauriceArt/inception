@@ -1,30 +1,13 @@
-NAME        =	Inception
 
-SRCS 		=	 $(shell find -name '*.cpp')
+DOCKER_COMPOSE = docker-compose.yml
 
-OBJS        =    ${addprefix objs/, ${SRCS:.cpp=.o}}
-
-CC          =    c++
-
-CFLAGS      =    -Wall -Werror -Wextra -std=c++98
-
-RM          =    rm -rf
-
-objs/%.o:	%.cpp Makefile
-	@mkdir -p $(dir $@)             
-	$(CC) ${CFLAGS} -c $< -o $@
-
-all:	${NAME}
-
-${NAME}:	${OBJS}           
-	$(CC) ${CFLAGS} -o $(NAME) ${OBJS}
-
+build:
+	docker compose -f $(DOCKER_COMPOSE) build
+up:
+	docker compose -f $(DOCKER_COMPOSE) up -d
+down:
+	docker compose -f $(DOCKER_COMPOSE) down
 clean:
-	${RM} objs/
+	docker compose -f $(DOCKER_COMPOSE) down -v
 
-fclean:	clean 
-	${RM} ${NAME}
-
-re:	fclean all
-
-.PHONY:		all clean fclean re
+re:	clean build

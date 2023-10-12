@@ -1,1 +1,32 @@
+version: '3'
+
 services:
+  mysql:
+    image: mariadb
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    env_file: 
+      - .env
+    restart: always
+
+  wordpress:
+    image: wordpress
+    volumes:
+      - /data/html:/var/www/html
+    depends_on:
+      - mysql
+    env_file: 
+      - .env
+    links:
+      - mysql
+    restart: always
+
+  nginx:
+    image: nginx
+    volumes:
+      - nginx:/etc/nginx/conf.d
+      - /data/html:/var/www/html
+    ports: 
+      - "443:80"
+    links:
+      - wordpress
