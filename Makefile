@@ -1,13 +1,13 @@
 
-DOCKER_COMPOSE = docker-compose.yml
+DOCKER_COMPOSE = ./srcs/docker-compose.yml
 
 build:
-	docker compose -f $(DOCKER_COMPOSE) build
+	sudo docker compose -f $(DOCKER_COMPOSE) build
 up:
-	docker compose -f $(DOCKER_COMPOSE) up -d
+	sudo docker compose -f $(DOCKER_COMPOSE) up -d
 down:
-	docker compose -f $(DOCKER_COMPOSE) down
+	sudo docker compose -f $(DOCKER_COMPOSE) down
 clean:
-	docker compose -f $(DOCKER_COMPOSE) down -v
+	sudo docker compose -f $(DOCKER_COMPOSE) down -v
 
 re:	clean build

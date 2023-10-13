@@ -1,32 +1,50 @@
 version: '3'
 
 services:
-  mysql:
+  mariadb:
     image: mariadb
+    build:
+      context: ./requirements/mariadb
+      dockerfile: Dockerfile
     volumes:
       - /data/mysql:/var/lib/mysql
     env_file: 
       - .env
+    networks:
+    - docker_network
     restart: always
 
   wordpress:
     image: wordpress
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile    
     volumes:
       - /data/html:/var/www/html
     depends_on:
       - mysql
     env_file: 
       - .env
-    links:
-      - mysql
+    networks:
+      - docker_network
     restart: always
 
   nginx:
     image: nginx
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile    
     volumes:
       - nginx:/etc/nginx/conf.d
       - /data/html:/var/www/html
     ports: 
       - "443:80"
-    links:
-      - wordpress
+    networks:
+      - docker_network
+    restart: always
+
+volumes:
+  nginx:
+
+networks:
+  docker_network:

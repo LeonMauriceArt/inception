@@ -5,8 +5,6 @@ RUN apt-get upgrade -y
 RUN apt-get install mariadb-server -y
 
 COPY conf/50-server.conf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY createDB.sh .
+COPY conf/createDB.sh .
 
 RUN ./createDB.sh
-
-ENTRYPOINT ["tail", "-f", "/dev/null"]
