@@ -7,7 +7,7 @@ services:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - /home/lmaurin-/data:/app/config
     env_file: 
       - .env
     networks:
@@ -20,9 +20,9 @@ services:
       context: ./requirements/wordpress
       dockerfile: Dockerfile    
     volumes:
-      - /data/html:/var/www/html
+      - /home/lmaurin-/data:/var/www/html
     depends_on:
-      - mysql
+      - nginx
     env_file: 
       - .env
     networks:
@@ -34,9 +34,6 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile    
-    volumes:
-      - nginx:/etc/nginx/conf.d
-      - /data/html:/var/www/html
     ports: 
       - "443:80"
     networks:
@@ -44,7 +41,6 @@ services:
     restart: always
 
 volumes:
-  nginx:
 
 networks:
   docker_network:
