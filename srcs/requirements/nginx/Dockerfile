@@ -1,6 +1,6 @@
 FROM debian:buster
 
-COPY nginxInstall.sh .
+COPY conf/nginxInstall.sh .
 RUN apt-get update
 RUN ./nginxInstall.sh
 

@@ -41,6 +41,8 @@ services:
     restart: always
 
 volumes:
+  mariadb:
+  wordpress:
 
 networks:
   docker_network:
