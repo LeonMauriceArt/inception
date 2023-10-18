@@ -3,12 +3,6 @@ FROM debian:buster
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
-#install ohmyzsh
-RUN apt-get install zsh -y
-RUN apt-get install curl -y
-RUN apt-get install git -y
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
-
 RUN apt-get -y install wget
 
 RUN apt-get install -y php7.3 \
@@ -24,3 +18,4 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
+ENTRYPOINT ["tail", "-f", "/dev/null"]

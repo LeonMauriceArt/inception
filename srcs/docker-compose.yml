@@ -15,14 +15,14 @@ services:
     restart: always
 
   wordpress:
+    depends_on:
+      - mariadb
     image: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile    
     volumes:
       - /home/lmaurin-/data:/var/www/html
-    depends_on:
-      - nginx
     env_file: 
       - .env
     networks:
@@ -30,6 +30,8 @@ services:
     restart: always
 
   nginx:
+    depends_on:
+      - wordpress
     image: nginx
     build:
       context: ./requirements/nginx
@@ -41,8 +43,19 @@ services:
     restart: always
 
 volumes:
-  mariadb:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/lmaurin-/data/mysql
+      o: bind
   wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/lmaurin-/data/wordpress
+      o: bind
 
 networks:
   docker_network:
+    driver: bridge
