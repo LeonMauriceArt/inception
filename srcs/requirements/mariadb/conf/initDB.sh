@@ -1,22 +1,22 @@
 #!/bin/bash
 
-mysql_install_db
-/etc/init.d/mysql start;
+echo "---Starting mysql---"
+service mysql start;
+echo "---Done!---"
 
-mysql_secure_installation << eof
 
-Y
-$SQL_ROOT_PASSWORD
-$SQL_ROOT_PASSWORD
-Y
-n
-Y
-Y
-eof
-
+echo "---Configuring database and users---"
 echo "CREATE DATABASE IF NOT EXISTS $SQL_DATABASE; \
 GRANT ALL ON $SQL_DATABASE.* TO '$SQL_USER'@'%' IDENTIFIED BY '$SQL_PASSWORD'; \
-FLUSH PRIVILEGES;" | mysql -u root -p$SQL_ROOT_PASSWORD
+FLUSH PRIVILEGES; \
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$SQL_ROOT_PASSWORD';" | mysql -u root
+echo "---Done!---"
 
-mysqladmin -u root -p$SQL_ROOT_PASSWORD shutdown
-exec mysqld_safe
+
+#echo "---Shutdown---"
+service mysql -u root -p$SQL_ROOT_PASSWORD status
+service mysql -u root -p$SQL_ROOT_PASSWORD restart
+#echo "---Done!---"
+
+#echo "---Starting mysqld_safe---"
+mysqld_safe
