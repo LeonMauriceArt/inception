@@ -21,6 +21,8 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+    ports:
+      - 9000:80
     volumes:
       - /home/lmaurin-/data:/var/www/html
     env_file: 

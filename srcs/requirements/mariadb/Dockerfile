@@ -15,6 +15,7 @@ RUN chmod +x /initDB.sh
 RUN ./initDB.sh
 
 EXPOSE 3306
+
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
 
 ENTRYPOINT ["/usr/bin/mysqld_safe"]

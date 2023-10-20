@@ -2,8 +2,7 @@
 DOCKER_COMPOSE = ./srcs/docker-compose.yml
 
 build:
-	@if [ ! -d "/home/lmaurin-/data" ]; then mkdir -p "/home/lmaurin-/data"; fi
-	@chmod +w /home/lmaurin-/data
+	@if [ ! -d "/home/lmaurin-/data" ]; then mkdir -p "/home/lmaurin-/data" && chmod +w /home/lmaurin-/data; fi
 	@sudo docker compose -f $(DOCKER_COMPOSE) build
 
 buildnocache:
@@ -21,7 +20,7 @@ logs:
 
 up:
 	@sudo docker compose -f $(DOCKER_COMPOSE) up -d
-	
+
 down:
 	@sudo docker compose -f $(DOCKER_COMPOSE) down
 
