@@ -2,11 +2,11 @@
 DOCKER_COMPOSE = ./srcs/docker-compose.yml
 
 build:
-	@if [ ! -d "/home/lmaurin-/data" ]; then mkdir -p "/home/lmaurin-/data" && chmod +w /home/lmaurin-/data; fi
+	@if [ ! -d "/home/${USER}/data" ]; then mkdir -p "/home/${USER}/data" && chmod +w /home/${USER}/data; fi
 	@sudo docker compose -f $(DOCKER_COMPOSE) build
 
 buildnocache:
-	@if [ ! -d "/home/lmaurin-/data" ]; then mkdir -p "/home/lmaurin-/data"; fi
+	@if [ ! -d "/home/${USER}/data" ]; then mkdir -p "/home/${USER}/data"; fi
 	@sudo docker compose -f $(DOCKER_COMPOSE) build --no-cache
 
 list:
@@ -26,7 +26,7 @@ down:
 
 clean:
 	@sudo docker compose -f $(DOCKER_COMPOSE) down -v --rmi all --remove-orphans
-	@if [ -d "/home/lmaurin-/data" ]; then rm -r "/home/lmaurin-/data"; fi
+	@if [ -d "/home/${USER}/data" ]; then rm -r "/home/${USER}/data"; fi
 	@sudo docker system prune -a -f
 
 re:	clean build

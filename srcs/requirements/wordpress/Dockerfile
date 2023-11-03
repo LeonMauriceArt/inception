@@ -1,27 +1,29 @@
 FROM debian:buster
 
-RUN apt-get update -y
-RUN apt-get upgrade -y
-
-RUN apt-get -y install wget
-
-RUN apt-get install -y php7.3 \
+RUN apt-get update -y && \
+apt-get -y install \
+wget \
+php7.3 \
 php-fpm \
+php-cli \
+php-redis \
 php-mysql \
-mariadb-client
+mariadb-client && \
+apt-get upgrade -y
 
 #RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 #RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
 
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-RUN chmod +x wp-cli.phar
-RUN mv wp-cli.phar /usr/local/bin/wp
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+chmod +x wp-cli.phar && \
+mv wp-cli.phar /usr/local/bin/wp
 
-COPY conf/auto_config.sh .
-RUN chmod +x ./auto_config.sh
+RUN mkdir /run/php
 
-RUN mkdir -p /var/www/wordpress
-RUN chown -R root:root /var/www/wordpress
+COPY conf/wordpress_config.sh .
+RUN chmod +x ./wordpress_config.sh && \
+mkdir -p /var/www/wordpress && \
+chown -R root:root /var/www/wordpress
 
 #ENTRYPOINT ["tail", "-f", "/dev/null"]
-ENTRYPOINT ["./auto_config.sh"]
+ENTRYPOINT ["./wordpress_config.sh"]
