@@ -1,15 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update -y && \
-apt-get -y install \
-wget \
-php7.3 \
-php-fpm \
-php-cli \
-php-redis \
-php-mysql \
-mariadb-client && \
-apt-get upgrade -y
+apt-get install -y wget curl php7.3 php-fpm php-cli php-redis php-mysql mariadb-client
 
 #RUN wget https://fr.wordpress.org/wordpress-6.0-fr_FR.tar.gz -P /var/www
 #RUN cd /var/www && tar -xzf wordpress-6.0-fr_FR.tar.gz && rm wordpress-6.0-fr_FR.tar.gz
@@ -25,5 +17,7 @@ RUN chmod +x ./wordpress_config.sh && \
 mkdir -p /var/www/wordpress && \
 chown -R root:root /var/www/wordpress
 
-#ENTRYPOINT ["tail", "-f", "/dev/null"]
-ENTRYPOINT ["./wordpress_config.sh"]
+EXPOSE 9000
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#ENTRYPOINT ["./wordpress_config.sh"]
