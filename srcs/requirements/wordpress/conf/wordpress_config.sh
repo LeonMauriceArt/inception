@@ -1,10 +1,12 @@
 #!/bin/bash
 
-sleep 10
-
 echo "---Downloading wordpress core---"
 wp core download --allow-root --path='/var/www/wordpress'
 echo "---Done!---"
+
+sleep 10
+
+if [ ! -d "/run/php" ]; then mkdir -p "/run/php" && chmod +w /run/php; fi
 
 echo "---Configuring wordpress DB---"
 wp config create --allow-root \
@@ -25,3 +27,5 @@ wp core install --allow-root \
         --admin_email=info@wp-cli.org
 
 echo "---Done!---"
+
+/usr/sbin/php-fpm7.3 -F

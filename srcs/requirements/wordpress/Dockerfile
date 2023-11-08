@@ -19,5 +19,5 @@ chown -R root:root /var/www/wordpress
 
 EXPOSE 9000
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
-#ENTRYPOINT ["./wordpress_config.sh"]
+#ENTRYPOINT ["tail", "-f", "/dev/null"]
+ENTRYPOINT ["./wordpress_config.sh"]
