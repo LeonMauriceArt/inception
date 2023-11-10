@@ -9,6 +9,7 @@ sleep 10
 if [ ! -d "/run/php" ]; then mkdir -p "/run/php" && chmod +w /run/php; fi
 
 echo "---Configuring wordpress DB---"
+cd /var/www/wordpress
 wp config create --allow-root \
         --dbname=$WORDPRESS_DB_NAME \
         --dbuser=$SQL_USER \
