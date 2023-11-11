@@ -9,7 +9,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - /home/lmaurin-/data:/app/config
+      - mariadb_data/var/lib/mysql
     env_file: 
       - .env
     networks:
@@ -26,7 +26,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - /home/lmaurin-/data:/var/www/html
+      - wordpress_data:/var/www/html
     env_file: 
       - .env
     networks:
@@ -42,6 +42,8 @@ services:
       dockerfile: Dockerfile    
     ports: 
       - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
     networks:
       - docker_network
     restart: always
@@ -53,7 +55,7 @@ volumes:
       type: none
       device: /home/lmaurin-/data/mysql
       o: bind
-  wordpress:
+  wordpress_data:
     driver: local
     driver_opts:
       type: none
