@@ -15,17 +15,17 @@ wp config create --allow-root \
         --dbuser=$SQL_USER \
         --dbpass=$SQL_PASSWORD \
         --dbhost=mariadb:3306 \
-        --path='/var/www/wordpress'
+        --path=$WORDPRESS_PATH
 echo "---Done!---"
 
 echo "---Core install wordpress---"
 wp core install --allow-root \
-        --path='/var/www/wordpress' \
-        --url=wpclidemo.dev \
-        --title="WP-CLI" \
+        --path=$WORDPRESS_PATH \
+        --url=$WORDPRESS_URL \
+        --title="Inception lmaurin-" \
         --admin_user=$WORDPRESS_ADMIN \
         --admin_password=$WORDPRESS_ADMIN_PASSWORD \
-        --admin_email=info@wp-cli.org
+        --admin_email='lmaurin-@student.42lyon.fr'
 
 echo "---Done!---"
 

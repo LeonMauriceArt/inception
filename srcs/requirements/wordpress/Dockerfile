@@ -10,15 +10,15 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 chmod +x wp-cli.phar && \
 mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir /run/php
+# RUN mkdir /run/php
 
 COPY conf/wordpress_config.sh .
 RUN chmod +x ./wordpress_config.sh && \
 mkdir -p /var/www/wordpress && \
-chown -R root:root /var/www/wordpress
+chown -R www-data:www-data /var/www/wordpress
 
-COPY conf/php.ini /etc/php/7.3/cli/php.ini
-COPY conf/php.ini /etc/php/7.3/fpm/php.ini
+COPY conf/php.ini /etc/php/7.3/fpm/pool.d/www.conf
+# COPY conf/php.ini /etc/php/7.3/fpm/php.ini
 
 EXPOSE 9000
 

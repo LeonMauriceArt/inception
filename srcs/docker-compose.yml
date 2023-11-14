@@ -4,16 +4,16 @@ services:
   mariadb:
     container_name: mariadb
     build:
-      context: ./requirements/mariadb
+      context: requirements/mariadb
       dockerfile: Dockerfile
-    ports:
-      - "3306:3306"
     volumes:
-      - mariadb_data/var/lib/mysql
+      - mariadb:/var/lib/mysql
+    ports: 
+      - 3306:3306
     env_file: 
       - .env
     networks:
-    - docker_network
+      - docker_network
     restart: always
 
   wordpress:
@@ -21,12 +21,10 @@ services:
       - mariadb
     container_name: wordpress
     build:
-      context: ./requirements/wordpress
+      context: requirements/wordpress
       dockerfile: Dockerfile
-    ports:
-      - "9000:9000"
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/wordpress
     env_file: 
       - .env
     networks:
@@ -38,24 +36,24 @@ services:
       - wordpress
     container_name: nginx
     build:
-      context: ./requirements/nginx
+      context: requirements/nginx
       dockerfile: Dockerfile    
     ports: 
-      - "443:443"
+      - 443:443
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress:/var/www/wordpress
     networks:
       - docker_network
     restart: always
 
 volumes:
-  mariadb_data:
+  mariadb:
     driver: local
     driver_opts:
       type: none
-      device: /home/lmaurin-/data/mysql
+      device: /home/lmaurin-/data/mariadb
       o: bind
-  wordpress_data:
+  wordpress:
     driver: local
     driver_opts:
       type: none
