@@ -25,8 +25,13 @@ wp core install --allow-root \
         --title="Inception lmaurin-" \
         --admin_user=$WORDPRESS_ADMIN \
         --admin_password=$WORDPRESS_ADMIN_PASSWORD \
-        --admin_email='lmaurin-@student.42lyon.fr'
-
+        --admin_email=$WORDPRESS_ADMIN_EMAIL
+wp theme activate twentytwentytwo --allow-root
 echo "---Done!---"
+
+echo "---Creating new user...---"
+wp user create $WORDPRESS_USER $WORDPRESS_USER_EMAIL --role=author --user_pass=$WORDPRESS_USER_PASSWORD --allow-root
+echo "---Done!---"
+
 
 /usr/sbin/php-fpm7.3 -F
